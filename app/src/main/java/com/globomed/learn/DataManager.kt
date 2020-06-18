@@ -96,4 +96,16 @@ object DataManager {
         db.update(EmployeeEntry.TABLE_NAME,values,selection,selectionArgs)
 
     }
+
+    fun deleteEmployee(databaseHelper: DatabaseHelper,empId : String) : Int{
+        val db = databaseHelper.writableDatabase
+
+        val selection = EmployeeEntry.COLUMN_ID + " LIKE ? "
+
+        val selectionArgs = arrayOf(empId)
+
+        return db.delete(EmployeeEntry.TABLE_NAME,selection,selectionArgs)
+
+    }
+    
 }

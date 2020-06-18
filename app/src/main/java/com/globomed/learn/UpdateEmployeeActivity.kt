@@ -1,9 +1,12 @@
 package com.globomed.learn
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_add.*
@@ -103,5 +106,31 @@ class UpdateEmployeeActivity: AppCompatActivity() {
 			val sdf = SimpleDateFormat("d MMM, yyyy", Locale.getDefault())
 			sdf.format(dobInMilis)
 		} ?: "Not Found"
+	}
+
+	override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+		menuInflater.inflate(R.menu.menu_item,menu)
+		return true
+	}
+
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		return when (item.itemId){
+			R.id.action_delete ->{
+				val builder = AlertDialog.Builder(this)
+				builder.setMessage(R.string.confirm_sure).setPositiveButton(R.string.yes){
+					dialog, empId ->
+				}.setNegativeButton(R.string.no){dialog,id ->
+					dialog.dismiss()
+				}
+
+				val dialog = builder.create()
+				dialog.setTitle("Are you sure")
+				dialog.show()
+
+				true
+			}
+			else -> super.onOptionsItemSelected(item)
+		}
+		return super.onOptionsItemSelected(item)
 	}
 }
