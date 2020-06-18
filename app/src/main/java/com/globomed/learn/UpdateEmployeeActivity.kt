@@ -118,7 +118,12 @@ class UpdateEmployeeActivity: AppCompatActivity() {
 			R.id.action_delete ->{
 				val builder = AlertDialog.Builder(this)
 				builder.setMessage(R.string.confirm_sure).setPositiveButton(R.string.yes){
-					dialog, empId ->
+					dialog, eId ->
+					val  result = DataManager.deleteEmployee(databaseHelper,empId.toString())
+
+					Toast.makeText(applicationContext,"$result records deleted",Toast.LENGTH_LONG).show()
+					setResult(Activity.RESULT_OK, Intent())
+					finish()
 				}.setNegativeButton(R.string.no){dialog,id ->
 					dialog.dismiss()
 				}

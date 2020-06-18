@@ -107,5 +107,10 @@ object DataManager {
         return db.delete(EmployeeEntry.TABLE_NAME,selection,selectionArgs)
 
     }
-    
+
+    fun deleteAllEmployees(dataBaseHelper: DatabaseHelper): Int {
+        val db = dataBaseHelper.writableDatabase
+        return db.delete(EmployeeEntry.TABLE_NAME,"1",null)
+    }
+
 }
