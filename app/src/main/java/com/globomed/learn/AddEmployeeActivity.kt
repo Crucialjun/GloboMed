@@ -6,6 +6,7 @@ import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import com.globomed.learn.GloboMedDBContract.EmployeeEntry
 import kotlinx.android.synthetic.main.activity_add.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -64,14 +65,16 @@ class AddEmployeeActivity : Activity() {
             val name = etEmpName.text.toString()
             val designation = etDesignation.text.toString()
             val dob = myCalendar.timeInMillis
+            val isSurgeon = if(sSurgeon.isChecked) 1 else 0
 
             var db = databaseHelper.writableDatabase
             val values = ContentValues()
-            values.put(GloboMedDBContract.EmployeeEntry.COLUMN_NAME,name)
-            values.put(GloboMedDBContract.EmployeeEntry.COLUMN_DESIGNATION,designation)
-            values.put(GloboMedDBContract.EmployeeEntry.COLUMN_DOB,dob)
+            values.put(EmployeeEntry.COLUMN_NAME,name)
+            values.put(EmployeeEntry.COLUMN_DESIGNATION,designation)
+            values.put(EmployeeEntry.COLUMN_DOB,dob)
+            values.put(EmployeeEntry.COLUMN_SURGEON,isSurgeon)
 
-            val result = db.insert(GloboMedDBContract.EmployeeEntry.TABLE_NAME,null,values)
+            val result = db.insert(EmployeeEntry.TABLE_NAME,null,values)
 
             setResult(RESULT_OK, Intent())
             Toast.makeText(applicationContext,"Employee Added",Toast.LENGTH_LONG).show()

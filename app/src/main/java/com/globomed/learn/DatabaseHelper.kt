@@ -13,14 +13,14 @@ class DatabaseHelper(context: Context?)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
-        db?.execSQL(GloboMedDBContract.EmployeeEntry.SQL_DROP_TABLE)
-        onCreate(db)
+        db?.execSQL(GloboMedDBContract.EmployeeEntry.ALTER_TABLE_1)
+
     }
 
 
 
     companion object{
         const val DATABASE_NAME = "globomed.db"
-        const val DATABASE_VERSION = 1
+        const val DATABASE_VERSION = 2
     }
 }

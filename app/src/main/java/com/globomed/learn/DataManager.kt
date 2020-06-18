@@ -13,7 +13,9 @@ object DataManager {
             EmployeeEntry.COLUMN_ID,
             EmployeeEntry.COLUMN_NAME,
             EmployeeEntry.COLUMN_DOB,
-            EmployeeEntry.COLUMN_DESIGNATION)
+            EmployeeEntry.COLUMN_DESIGNATION,
+            EmployeeEntry.COLUMN_SURGEON
+        )
 
         val cursor = db.query(
             EmployeeEntry.TABLE_NAME,
@@ -28,14 +30,17 @@ object DataManager {
         val namePos = cursor.getColumnIndex(EmployeeEntry.COLUMN_NAME)
         val dobPos = cursor.getColumnIndex(EmployeeEntry.COLUMN_DOB)
         val designationPos = cursor.getColumnIndex(EmployeeEntry.COLUMN_DESIGNATION)
+        val isSurgeonPosition = cursor.getColumnIndex(EmployeeEntry.COLUMN_SURGEON)
 
         while(cursor.moveToNext()){
             val id = cursor.getString(idPos)
             val name = cursor.getString(namePos)
             val dob = cursor.getLong(dobPos)
             val designation = cursor.getString(designationPos)
+            val isSurgeon = cursor.getInt(isSurgeonPosition)
 
-            employees.add(Employee(id,name,dob,designation))
+
+            employees.add(Employee(id,name,dob,designation,isSurgeon))
         }
 
         cursor.close()
@@ -48,7 +53,9 @@ object DataManager {
         val columns = arrayOf(
             EmployeeEntry.COLUMN_NAME,
             EmployeeEntry.COLUMN_DOB,
-            EmployeeEntry.COLUMN_DESIGNATION)
+            EmployeeEntry.COLUMN_DESIGNATION,
+            EmployeeEntry.COLUMN_SURGEON
+        )
 
         val selection = EmployeeEntry.COLUMN_ID + " LIKE ? "
 
@@ -66,13 +73,15 @@ object DataManager {
         val namePos = cursor.getColumnIndex(EmployeeEntry.COLUMN_NAME)
         val dobPos = cursor.getColumnIndex(EmployeeEntry.COLUMN_DOB)
         val designationPos = cursor.getColumnIndex(EmployeeEntry.COLUMN_DESIGNATION)
+        val isSurgeonPosition = cursor.getColumnIndex(EmployeeEntry.COLUMN_SURGEON)
 
         while (cursor.moveToNext()){
             val name = cursor.getString(namePos)
             val dob = cursor.getLong(dobPos)
             val designation = cursor.getString(designationPos)
+            val isSurgeon = cursor.getInt(isSurgeonPosition)
 
-            employee = Employee(empId,name,dob,designation)
+            employee = Employee(empId,name,dob,designation,isSurgeon)
         }
 
         cursor.close()

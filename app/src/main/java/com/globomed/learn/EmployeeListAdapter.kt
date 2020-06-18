@@ -16,7 +16,7 @@ class EmployeeListAdapter(
 ) : RecyclerView.Adapter<EmployeeListAdapter.EmployeeViewHolder>() {
 
 	lateinit var employeeList : ArrayList<Employee>
-	val TAG = EmployeeListAdapter::class.java.name
+
 	override fun onCreateViewHolder(
 		parent: ViewGroup,
 		viewType: Int
@@ -32,7 +32,7 @@ class EmployeeListAdapter(
 
 	override fun onBindViewHolder(holder: EmployeeViewHolder, position: Int) {
 		val employee = employeeList[position]
-		holder.setData(employee.name,employee.designation,position)
+		holder.setData(employee.name,employee.designation,employee.isSurgeon,position)
 		holder.setListener()
 	}
 
@@ -43,9 +43,11 @@ class EmployeeListAdapter(
 
 	inner class EmployeeViewHolder(itemView: View)  : RecyclerView.ViewHolder(itemView) {
 		var pos = 0
-		fun setData(name: String, designation: String, pos: Int) {
+		fun setData(name: String, designation: String, issSurgeon : Int,pos: Int) {
 			itemView.tvEmpName.text = name
 			itemView.tvEmpDesignation.text = designation
+			itemView.tvIsSurgeonConfirm.text =
+				if (1 == issSurgeon) "YES" else "NO"
 			this.pos = pos
 		}
 
